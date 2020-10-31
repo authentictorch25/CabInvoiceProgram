@@ -9,9 +9,36 @@ namespace CabInvoiceGenerator
         private readonly double COST_PER_KM;
         private readonly int COST_PER_MINUTE;
         private readonly double MINIMUM_FARE;
+        public RideType rideType;
 
+       
         RideRepository rideRepository = null;
-     
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InvoiceGenerator"/> class.
+        /// </summary>
+        /// <param name="ridetype">The ridetype.</param>
+        public InvoiceGenerator(RideType ridetype)
+        {
+            this.rideType = ridetype;
+            rideRepository = new RideRepository();
+            if (ridetype.Equals(RideType.NORMAL))
+            {
+                /// Initialization of constants for NORMAL rideType
+                COST_PER_KM = 10;
+                COST_PER_MINUTE = 1;
+                MINIMUM_FARE = 5;
+            }
+            /// UC 5 Refactor
+            else if (ridetype.Equals(RideType.PREMIUM))
+            {
+                /// Initialization of constants for PREMIUM rideType
+                COST_PER_KM = 15;
+                COST_PER_MINUTE = 2;
+                MINIMUM_FARE = 20;
+            }
+            else
+                throw new CabInvoiceCustomException(CabInvoiceCustomException.ExceptionType.INVALID_RIDE_TYPE, "Invalid Ride Type");
+        }
 
         public InvoiceGenerator()
         {
