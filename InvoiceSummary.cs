@@ -11,11 +11,13 @@ namespace CabInvoiceGenerator
     {
         private int numberOfRides;
         private double totalFare;
+        public double averageFare;
 
-        public InvoiceSummary(int numberOfRides, double totalFare)
+        public InvoiceSummary(int numberOfRides, double totalFare, double averageFare)
         {
             this.numberOfRides = numberOfRides;
             this.totalFare = totalFare;
+            this.averageFare = averageFare;
         }
 
         /// <summary>
@@ -38,7 +40,8 @@ namespace CabInvoiceGenerator
             }
             // returns true only if the following values of BOTH the objects are equal
             return (this.numberOfRides == ((InvoiceSummary)obj).numberOfRides)
-                && (this.totalFare == ((InvoiceSummary)obj).totalFare);
+                && (this.totalFare == ((InvoiceSummary)obj).totalFare)
+                && (this.averageFare == ((InvoiceSummary)obj).averageFare);
         }
 
         /// <summary>
@@ -49,8 +52,7 @@ namespace CabInvoiceGenerator
         /// </returns>
         public override int GetHashCode()
         {
-            return numberOfRides.GetHashCode() ^ totalFare.GetHashCode();
+            return numberOfRides.GetHashCode() ^ totalFare.GetHashCode() ^ averageFare.GetHashCode();
         }
     }
 }
-
